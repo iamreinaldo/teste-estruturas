@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
@@ -40,16 +42,40 @@ func iniciarMonitoramento(nome string) {
 }
 
 func lerEnderecosArquivo(nome string) []string {
+	var ips []string
+	arquivo, err := os.Open(nome)
 
+	if err != nil {
+		fmt.Println("Falha ao ler o arquivo: ", err)
+	}
+
+	defer arquivo.Close()
+	leitor := bufio.NewReader(arquivo)
+	for {
+		linha, err := leitor.ReadString('\n')
+		linha = strings.TrimSpace(linha)
+		if linha != "" {
+			ips = append(ips, linha)
+		}
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Println("Erro ao ler a linha: ", err)
+			break
+		}
+	}
+	fmt.Println("Pingando para os seguintes endereços: ", ips)
+	return ips
 }
 
 func ping(enderecos string) {
-	out, err := exec.Command("ping", "-c", "4", enderecos).Output()
-	if err != nil {
-		fmt.Printf("Falha ao executar ping para %s: %s\n\n", enderecos, err)
-		return
+	err := exec.Command("ping", "-c", "4", enderecos).Run()
+	if err == nil {
+		fmt.Printf("Ping para %s bem-sucedido. \n\n", enderecos)
+	} else {
+		fmt.Printf("Falha ao executar ping para %s. \n\n", enderecos)
 	}
-	fmt.Printf("Resultado do ping para %s:\n%s\n\n", enderecos, strings.TrimSpace(string(out)))
 }
 
 func main() {
