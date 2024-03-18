@@ -31,12 +31,16 @@ func monitoraMenu() {
 	fmt.Println("Qualquer tecla para voltar ao menu iniciar")
 }
 
-func iniciarMonitoramento() {
+func iniciarMonitoramento(nome string) {
 	fmt.Println("Pingando...")
-	enderecos := []string{"172.16.201.2", "172.16.201.98"}
+	enderecos := lerEnderecosArquivo(nome)
 	for _, enderecos := range enderecos {
 		ping(enderecos)
 	}
+}
+
+func lerEnderecosArquivo(nome string) []string {
+
 }
 
 func ping(enderecos string) {
@@ -58,13 +62,13 @@ func main() {
 		comandoMonitora := lerComando()
 		switch comandoMonitora {
 		case 1:
-			iniciarMonitoramento()
+			iniciarMonitoramento("balanca.txt")
 		case 2:
-			iniciarMonitoramento()
+			iniciarMonitoramento("olt.txt")
 		case 3:
-			iniciarMonitoramento()
+			iniciarMonitoramento("unm.txt")
 		default:
-			iniciarMonitoramento()
+			os.Exit(-1)
 		}
 	case 2:
 		fmt.Println("Imprimindo logs...")
