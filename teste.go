@@ -111,9 +111,9 @@ func main() {
 		case 2:
 			iniciarMonitoramento("olt.txt")
 		case 3:
-			iniciarMonitoramento("paraiso.txt")
-		case 4:
 			iniciarMonitoramento("lages.txt")
+		case 4:
+			iniciarMonitoramento("paraiso.txt")
 		case 5:
 			iniciarMonitoramento("palmeirinha.txt")
 		default:
