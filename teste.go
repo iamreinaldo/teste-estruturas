@@ -14,7 +14,7 @@ type Endereco struct {
 }
 
 func verApp() {
-	versao := 0.1
+	versao := "1.0.1"
 	fmt.Println("Versão: ", versao)
 }
 
