@@ -1,0 +1,3 @@
+172.16.201.4;OLT_Paraíso
+187.103.0.98;Concetrador
+172.16.201.7;OLT_Palmeirinha
